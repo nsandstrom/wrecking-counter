@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Rounds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Active</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Remaining</th>
+      <th>Score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rounds.each do |round| %>
+      <tr>
+        <td><%= round.name %></td>
+        <td><%= round.active %></td>
+        <td><%= round.starttime %></td>
+        <td><%= round.endtime %></td>
+        <td><%= round.remaining if round.active %></td>
+        <td><%= round.score %></td>
+        <td><%= link_to 'Show', round %></td>
+        <td><%= link_to 'Edit', edit_round_path(round) %></td>
+        <td><%= link_to 'Destroy', round, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= form_for(:round, url: rounds_path) do |f| -%>
+  <%= f.label :starttime, "Start time" %><br>
+  <%= f.date_select :starttime %> <br>
+  <%= f.time_select :starttime, :ignore_date => true, minute_step: 5, :default => Time.now +  2.hours %><br>
+  <%= f.label :length, "Length" %>
+  <%= f.text_field :length %><br>
+  <%= f.submit "Submit" %>
+<% end -%>
+
+<%= link_to 'New Round', new_round_path %>

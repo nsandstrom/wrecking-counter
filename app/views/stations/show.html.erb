@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @station.location %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%=@station.team ? @station.team.name : "Unclaimed" %>
+</p>
+
+<p>
+  <strong>Boost:</strong>
+  <%= @station.boost %>
+</p>
+
+<%= link_to 'Edit', edit_station_path(@station) %> |
+<%= link_to 'Back', stations_path %>

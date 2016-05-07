@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scorecounter</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<nav>
+	<table>
+		<tr>
+			<td><%= link_to "Stats", public_index_path %></td>
+			<% unless session[:user_id] == nil || User.find(session[:user_id]) == nil %>
+				<td><%= link_to "Stations", stations_path %></td>
+				<td><%= link_to "Teams", teams_path %></td>
+				<td><%= link_to "Game rounds", rounds_path %></td>
+				<td><%= link_to "Reset all", reset_all_path, method: :put %></td>
+				<td><%= link_to "Sign out", logout_path, method: :delete %></td>
+			<% else %>
+				<td><%= link_to "Admin", login_path %><td>
+			<% end -%>
+		</tr>
+	</table>
+</nav>
+<%= "#{User.find(session[:user_id]).name} är inloggad" unless session[:user_id] == nil %><br>
+<%= yield %>
+
+</body>
+</html>

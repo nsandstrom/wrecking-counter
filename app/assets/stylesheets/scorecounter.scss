@@ -1,0 +1,19 @@
+body {
+	margin: 30px;
+}
+
+nav {
+    height: 100%;
+    width: 100%;
+    td {
+    	font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif !important;
+    	font-size: 20px;
+    	padding-right: 10px;
+    }
+    
+}
+
+nav:after
+{   
+    clear: all;
+}

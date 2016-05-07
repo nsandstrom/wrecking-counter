@@ -1,0 +1,43 @@
+<h2>Battle stats</h2>
+<br>
+
+<div>
+	<% if @round %>
+		<h3>The game is on!</h3>
+		<%= @round.remaining %> left.
+	<% else %>
+		<h3>No game right now</h3>
+	<% end -%>
+</div>
+<br>
+
+<div>
+	<h3>Scoreboard</h3>
+	<table>
+		<tr>
+			<th>Team</th><th>Score</th>
+		</tr>
+		<% @teams.each do |team| %>
+			<tr>
+				<td><%= team.name %></td>
+				<td><%= team.score %></td>
+			</tr>
+		<% end -%>
+	</table>
+</div>
+<br>
+
+<div>
+	<h3>Field status</h3>
+	<table>
+		<tr>
+			<th>Station</th><th>Owner</th><th>Boost</th>
+		</tr>
+		<% @stations.each do |station| %>
+			<tr>
+				<td><%= station.location %></td>
+				<td><%= station.owner %></td>
+				<td><%= station.boost %></td>
+			</tr>
+		<% end -%>
+	</table>
