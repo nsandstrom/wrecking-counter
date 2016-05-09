@@ -36,8 +36,8 @@
 
 <%= form_for(:round, url: rounds_path) do |f| -%>
   <%= f.label :starttime, "Start time" %><br>
-  <%= f.date_select :starttime %> <br>
-  <%= f.time_select :starttime, :ignore_date => true, minute_step: 5, :default => Time.now +  2.hours %><br>
+  <= f.date_select :starttime %> <br>
+  <%= f.datetime_select :starttime, :ignore_date => true, minute_step: 5, :default => Time.zone.now +  2.hours %><br>
   <%= f.label :length, "Length" %>
   <%= f.text_field :length %><br>
   <%= f.submit "Submit" %>

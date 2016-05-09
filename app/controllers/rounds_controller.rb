@@ -26,7 +26,8 @@ class RoundsController < ApplicationController
                           round_params["starttime(2i)"],
                           round_params["starttime(3i)"],
                           round_params["starttime(4i)"],
-                          round_params["starttime(5i)"]).utc
+                          round_params["starttime(5i)"])
+    starttime -= Time.zone.now.utc_offset unless Rails.env=="development"
     runtime = params[:round][:length].to_i
     puts "start time #{params[:round][:Starttime]}"
 
