@@ -25,6 +25,7 @@ test:
 
 production:
   <<: *default
+  host: <%= ENV['rds_db_host'] %>
   database: scorecounter_production
   username: root
   password: <%= ENV['production_db_password'] %>
