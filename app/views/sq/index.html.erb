@@ -1,0 +1,9 @@
+<% @sq_reports.each do |sq| %>
+
+<%= sq.inspect %> 
+<%= link_to "link text...", sq_path(sq) %>
+<br>
+
+<% end -%> 
+
+<%= sqs_path %>

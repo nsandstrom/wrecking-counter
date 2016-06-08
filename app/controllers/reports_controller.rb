@@ -17,6 +17,8 @@ class ReportsController < ApplicationController
 		end
 	end
 
+	
+
 	def get_time
 		head Time.now.to_i
 	end

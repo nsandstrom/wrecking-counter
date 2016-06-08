@@ -41,6 +41,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'sq/:sq' => 'sq#create'
+  get 'sqs' => 'sq#index'
+  get 'sqs/:id' => 'sq#show', as: :sq
   # get 'public' => 'public#index', as: :public
 
   resources :users
