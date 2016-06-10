@@ -1,0 +1,7 @@
+<br>
+
+<b><%= @sq.name %></b> <br>
+<b><%= @sq.sq_condition %> (<%= @sq.sq %>)</b>
+<%= (@sq.created_at + 2.hours).utc.strftime("%A %y%m%d - %H:%M:%S") %> <br>
+<%= link_to "edit", edit_sq_path(@sq) %>
+<%= link_to 'delete', @sq, method: :delete, data: { confirm: 'Are you sure?' } %>

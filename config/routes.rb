@@ -43,7 +43,12 @@ Rails.application.routes.draw do
 
   get 'sq/:sq' => 'sq#create'
   get 'sqs' => 'sq#index'
+  get 'sq_reports' => 'sq#index'
   get 'sqs/:id' => 'sq#show', as: :sq
+  get 'sqs/:id/edit' => 'sq#edit', as: :edit_sq
+  delete 'sqs/:id' => 'sq#destroy'
+  patch 'sqs/:id' => 'sq#update'
+
   # get 'public' => 'public#index', as: :public
 
   resources :users

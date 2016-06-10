@@ -1,9 +1,17 @@
-<% @sq_reports.each do |sq| %>
 
-<%= sq.inspect %> 
-<%= link_to "link text...", sq_path(sq) %>
+<table>
 <br>
+<% @sqs.each do |sq| %>
+<tr>
+<td><b><%= link_to truncate(sq.name), sq_path(sq) %></b></td>
+<td><b><%= sq.sq_condition %> (<%= sq.sq %>)</b></td>
+</tr><tr>
+<td colspan="2"><%= (sq.created_at + 2.hours).utc.strftime("%A %y%m%d - %H:%M:%S") %></td> 
+<td><%= link_to "edit", edit_sq_path(sq) %></td>
+<td><%= link_to 'delete', sq, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<tr><td><br/></td></tr>
 
 <% end -%> 
-
+</table>
 <%= sqs_path %>

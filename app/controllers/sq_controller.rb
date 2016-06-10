@@ -1,12 +1,38 @@
 class SqController < ApplicationController
 	def create
-		Sq.create(name: "name_me", time: Time.now, sq: params[:sq])
-		head 202
+		if Sq.create(name: "name_me", time: Time.now, sq: params[:sq])
+			head 202
+		end
 	end
 
 	def index
-		@sq_reports = Sq.all
+		@sqs = Sq.all
 	end
+
+	def show
+		@sq = Sq.find(params[:id])
+	end
+
+	def edit
+		@sq = Sq.find(params[:id])
+  	end
+
+  	def update
+  		@sq = Sq.find(params[:id])
+  		@sq.update(sq_params)
+  		redirect_to sqs_path
+  	end
+
+	def destroy
+		@sq = Sq.find(params[:id])
+	    @sq.destroy
+	    redirect_to sqs_path
+	end
+
+	private
+	def sq_params
+      params.require(:sq).permit(:name)
+    end
 end
 
 

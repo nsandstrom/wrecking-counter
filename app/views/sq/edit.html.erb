@@ -1,0 +1,12 @@
+<h3>EDIT</h3> <br>
+<%= @sq.created_at %>
+
+<%= form_for(@sq) do |f| %>
+
+  <div class="field">
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
