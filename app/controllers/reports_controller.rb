@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
 		station = Station.find(params[:id])
 		if Team.exists?(params[:owner]) && station.update(team_id: params[:owner])
 		# if params[:owner].to_i.between?(1, Station.last.id)			
-			head 202
+			render status: 202, text: "Ok"
 		else
 			head 400
 		end
@@ -19,6 +19,14 @@ class ReportsController < ApplicationController
 
 	def get_time
 		head Time.now.to_i
+	end
+
+	def get_time_to_start
+		if Round.coming.count > 0
+			render status: 200, text: (Round.coming.first.starttime - Time.now).to_i
+		else
+			head 400
+		end
 	end
 
 	private

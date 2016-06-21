@@ -19,8 +19,8 @@ Rails.application.routes.draw do
 
   resources :reports, except: [:index, :new, :create, :show, :edit, :update, :destroy] do
     collection do
-      get 'time_to_start'
-      get 'tts' => 'reports#time_to_start', as: nil
+      get 'get_time_to_start'
+      get 'tts' => 'reports#get_time_to_start', as: nil
       get 'get_time'
       get 'time?' => 'reports#get_time', as: nil
     end
