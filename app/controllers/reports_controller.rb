@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
-	before_action :verify_passkey, only: :set_owner
+	before_action :verify_passkey, only: [:set_owner, :set_boost]
 
 	def index
 		
@@ -19,6 +19,20 @@ class ReportsController < ApplicationController
 
 	def get_time
 		head Time.now.to_i
+	end
+
+	def set_boost
+		begin
+			station = Station.find(params[:station])
+		rescue
+			render status: 404, text: "station not found\n" and return
+		end
+		if params[:boost].between?(50, 200) && station.update(boost: params[:boost])
+			puts "#{station.boost} #{params["boost"]}"
+			head 202
+		else
+			head 400
+		end
 	end
 
 	def get_time_to_start
@@ -43,3 +57,5 @@ end
 
 
 # curl -X PUT -H "Content-Type: multipart/form-data;" -F "1=2" "localhost:3000/reports/2/owner?key=hemligt;owner=2" -v
+
+# curl -v -H "Content-Type: application/json" -X POST -d '{"station":1,"boost":100,"key":"hemligt"}' http://localhost:3000/reports/set_boost
