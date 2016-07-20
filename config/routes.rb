@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'tts' => 'reports#get_time_to_start', as: nil
       get 'get_time'
       get 'time?' => 'reports#get_time', as: nil
+      post 'set_boost'
     end
     member do
       get 'set_owner'
