@@ -16,6 +16,10 @@
 !/log/.keep
 /tmp
 
+# Ignore compiled assets
+/public/assets/*
+
+
 
 # secrets
 /config/application.yml
