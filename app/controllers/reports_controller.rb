@@ -17,6 +17,17 @@ class ReportsController < ApplicationController
 		end
 	end
 
+	def get_owner
+		if station = Station.find(params[:id])
+			if station.team && (station.team_id.between? 1, 4)
+				render status: 200, text: "Ok:#{station.team_id.to_s}"
+				puts station.owner
+			else
+				render status: 200, text: "Ok:0"
+			end
+		end
+	end
+
 	def get_time
 		head Time.now.to_i
 	end
@@ -35,13 +46,22 @@ class ReportsController < ApplicationController
 		end
 	end
 
+	def get_boost
+		begin
+			station = Station.find(params[:id])
+		rescue
+			render status: 404, text: "station not found\n" and return
+		end
+		render status: 200, text: "Ok:#{station.boost}"
+	end
+
 	def get_time_to_start
 		if Round.active.count > 0
-			render status: 200, text: -(Round.active.first.seconds_left)
+			render status: 200, text: "Ok:#{-(Round.active.first.seconds_left)}"
 		elsif Round.coming.count > 0
-			render status: 200, text: (Round.coming.first.starttime - Time.now).to_i
+			render status: 200, text: "Ok:#{(Round.coming.first.starttime - Time.now).to_i}"
 		else
-			render status: 400, text: "999999"
+			render status: 400, text: "Ok:999999"
 		end
 	end
 
