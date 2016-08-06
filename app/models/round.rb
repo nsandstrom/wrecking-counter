@@ -8,4 +8,8 @@ class Round < ActiveRecord::Base
 	def pending
 		Time.now = self.starttime
 	end
+
+	def seconds_left
+		(self.endtime - Time.zone.now).seconds.to_i
+	end
 end

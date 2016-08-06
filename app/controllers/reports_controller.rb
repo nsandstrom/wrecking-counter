@@ -36,10 +36,12 @@ class ReportsController < ApplicationController
 	end
 
 	def get_time_to_start
-		if Round.coming.count > 0
+		if Round.active.count > 0
+			render status: 200, text: -(Round.active.first.seconds_left)
+		elsif Round.coming.count > 0
 			render status: 200, text: (Round.coming.first.starttime - Time.now).to_i
 		else
-			head 400
+			render status: 400, text: "999999"
 		end
 	end
 

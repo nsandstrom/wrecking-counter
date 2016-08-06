@@ -24,10 +24,14 @@ Rails.application.routes.draw do
       get 'get_time'
       get 'time?' => 'reports#get_time', as: nil
       post 'set_boost'
+      get 'get_boost'
+      get 'gb' => 'reports#get_boost', as: nil
     end
     member do
       get 'set_owner'
       get 'so' => 'reports#set_owner', as: nil
+      get 'get_owner'
+      get 'go' => 'reports#get_owner', as: nil
       get 'battery_level'
       get 'bl' => 'reports#battery_level', as: nil
     end
