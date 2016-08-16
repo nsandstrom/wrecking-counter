@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
 	before_action :verify_passkey, only: [:set_owner, :set_boost]
+	after_action :report_com, only: [:get_boost, :set_owner]
 
 	def index
 		
