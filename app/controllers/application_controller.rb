@@ -20,4 +20,19 @@ class ApplicationController < ActionController::Base
   def authenticate_user
   	redirect_to login_path unless session[:user_id] != nil && User.find(session[:user_id])
   end
+
+
+
+  def report_com
+    puts "report com"
+    begin
+      station = Station.find(params[:id])
+
+      station.update(latest_com: Time.now)
+    rescue
+      puts params.inspect
+    end
+  end
+
+
 end

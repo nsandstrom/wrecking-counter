@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430143432) do
+ActiveRecord::Schema.define(version: 20160816201649) do
 
   create_table "rounds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160430143432) do
     t.integer  "boost",      limit: 4,   default: 100, null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.datetime "latest_com"
   end
 
   add_index "stations", ["team_id"], name: "index_stations_on_team_id", using: :btree
