@@ -33,11 +33,11 @@ namespace :gameround do
 	end
 
 	task :watch => :environment  do
-		puts "Let's play a game"
+		puts "Watching you"
 		Interval = 1
 		while true
 
-			Round.where("starttime < ?", Time.now).where("endtime > ?", Time.now).each do |round|
+			Round.where("starttime <= ?", Time.now).where("endtime >= ?", Time.now).each do |round|
 				round.update(active: true)
 			end
 
@@ -45,7 +45,7 @@ namespace :gameround do
 				puts "got active round"
 				last_tick = Time.now
 				until Time.now > active_round.endtime do
-					active_round = Round.order('endtime desc').first
+					# active_round = Round.order('endtime desc').first
 					if Time.now - last_tick >= Interval
 		      			last_tick += Interval
 						
