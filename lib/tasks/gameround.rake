@@ -68,7 +68,7 @@ namespace :gameround do
 				end
 				active_round.update(active: false)
 			end
-			sleep 5
+			sleep 1
 			puts "no game"
 			
 		end
