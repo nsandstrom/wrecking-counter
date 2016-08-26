@@ -34,7 +34,7 @@ namespace :gameround do
 
 	task :watch => :environment  do
 		puts "Watching you"
-		Interval = 1
+		Interval = 10
 		while true
 
 			Round.where("starttime <= ?", Time.now).where("endtime >= ?", Time.now).each do |round|
