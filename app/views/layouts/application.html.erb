@@ -12,7 +12,7 @@
 	<table>
 		<tr>
 			<td><%= link_to "Stats", public_index_path %></td>
-			<% unless session[:user_id] == nil || User.find(session[:user_id]) == nil %>
+			<% if session[:user_id] %>
 				<td><%= link_to "Stations", stations_path %></td>
 				<td><%= link_to "Teams", teams_path %></td>
 				<td><%= link_to "Game rounds", rounds_path %></td>
@@ -24,7 +24,7 @@
 		</tr>
 	</table>
 </nav>
-<%= "#{User.find(session[:user_id]).name} är inloggad" unless session[:user_id] == nil %><br>
+<%= "#{User.find(session[:user_id]).name} är inloggad" if session[:user_id] %><br>
 <%= yield %>
 
 </body>

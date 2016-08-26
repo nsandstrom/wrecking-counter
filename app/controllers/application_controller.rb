@@ -18,7 +18,10 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate_user
-  	redirect_to login_path unless session[:user_id] != nil && User.find(session[:user_id])
+    @current_user = User.find(session[:user_id]) unless session[:user_id] == ""
+    redirect_to login_path, notice: "You're not logged in" unless @current_user 
+    puts @current_user
+  	# redirect_to login_path unless session[:user_id] != nil && User.find(session[:user_id])
   end
 
 
