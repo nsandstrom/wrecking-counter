@@ -16,7 +16,7 @@
 				<td><%= link_to "Stations", stations_path %></td>
 				<td><%= link_to "Teams", teams_path %></td>
 				<td><%= link_to "Game rounds", rounds_path %></td>
-				<td><%= link_to "Reset all", reset_all_path, method: :put %></td>
+				<td><%= link_to "Reset all", reset_all_path, method: :put,  :data => {:confirm => 'Reset all?'} %></td>
 				<td><%= link_to "Sign out", logout_path, method: :delete %></td>
 			<% else %>
 				<td><%= link_to "Admin", login_path %><td>

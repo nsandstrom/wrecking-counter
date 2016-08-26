@@ -73,16 +73,16 @@ class ReportsController < ApplicationController
 			active_rounds.to_a.delete_if { |x| (1 << (station.id - 1)) & x.stations != (1 << (station.id - 1)) }
 
 		end
-		if active_rounds.size > 0
+		if active_rounds && active_rounds.size > 0
 			render status: 200, text: "Ok:#{-(active_rounds.first.seconds_left)}" and return
 		end
 
 
 		if Round.coming.count > 0
-			coming_rounds = Round.coming
-			coming_rounds.to_a.delete_if { |x| (1 << (station.id - 1)) & x.stations != (1 << (station.id - 1)) }
+			coming_rounds = Round.coming.to_a
+			coming_rounds.delete_if { |x| (1 << (station.id - 1)) & x.stations != (1 << (station.id - 1)) }
 		end
-		if coming_rounds.size > 0
+		if coming_rounds && coming_rounds.size > 0
 			render status: 200, text: "Ok:#{(coming_rounds.first.starttime - Time.now).to_i}" and return
 		end
 			render status: 200, text: "Ok:999999"

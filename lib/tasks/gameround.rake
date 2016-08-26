@@ -52,7 +52,7 @@ namespace :gameround do
 						teams = Team.all.includes(:stations)
 						teams.each do |team|
 							team.stations.each do |station|
-								team.score += station.boost
+								team.score += station.boost if (1 << (station.id - 1)) & active_round.stations == (1 << (station.id - 1))
 							end
 							team.save
 						end
