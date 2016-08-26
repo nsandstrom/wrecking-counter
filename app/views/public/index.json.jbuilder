@@ -7,5 +7,5 @@ json.stations(@stations) do |station|
 end
 
 json.teams(@teams) do |team|
-	json.extract! team, :name, :score, :colour
+	json.extract! team, :name, :short_name, :score, :colour
 end
