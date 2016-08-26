@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
 	before_action :verify_passkey, only: [:set_owner, :set_boost]
-	after_action :report_com, only: [:get_boost, :set_owner]
+	after_action :report_com, only: [:get_boost, :set_owner, :get_time_to_start]
 
 	def index
 		
@@ -64,6 +64,29 @@ class ReportsController < ApplicationController
 		else
 			render status: 400, text: "Ok:999999"
 		end
+	end
+
+	def get_station_time_to_start
+		station = Station.find(params[:id])
+		if Round.active.count > 0
+			active_rounds = Round.active
+			active_rounds.to_a.delete_if { |x| (1 << (station.id - 1)) & x.stations != (1 << (station.id - 1)) }
+
+		end
+		if active_rounds.size > 0
+			render status: 200, text: "Ok:#{-(active_rounds.first.seconds_left)}" and return
+		end
+
+
+		if Round.coming.count > 0
+			coming_rounds = Round.coming
+			coming_rounds.to_a.delete_if { |x| (1 << (station.id - 1)) & x.stations != (1 << (station.id - 1)) }
+		end
+		if coming_rounds.size > 0
+			render status: 200, text: "Ok:#{(coming_rounds.first.starttime - Time.now).to_i}" and return
+		end
+			render status: 200, text: "Ok:999999"
+		
 	end
 
 	private

@@ -31,12 +31,10 @@ class RoundsController < ApplicationController
     runtime = params[:round][:length].to_i
     puts "start time #{params[:round][:Starttime]}"
 
-    unless round && round.active
+    # unless round && round.active
        Round.create(name: "Test round",starttime: starttime, endtime: (starttime + runtime.minutes).utc, active: false )
-      #  fork do
-      #   "#{%x{ rake -f #{Rails.root}/Rakefile gameround:run }}"
-      # end
-    end
+      
+    # end
 
     
     # head 202

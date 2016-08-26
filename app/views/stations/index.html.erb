@@ -8,6 +8,7 @@
       <th>Location</th>
       <th>Owner</th>
       <th>Boost</th>
+      <th>Active</th>
       <th>Lifesign</th>
       <th colspan="3"></th>
     </tr>
@@ -19,6 +20,7 @@
         <td><%= station.location %></td>
         <td><%= station.team ? station.team.name : "Unclaimed" %></td>
         <td><%= station.boost %></td>
+        <td><%= check_box_tag 'station', 'active', station.active, disabled: true %></td>
         <td><%= station.latest_com.strftime("%m%d - %H:%M:%S") if station.latest_com %></td>
         <td><%= link_to 'Show', station %></td>
         <td><%= link_to 'Edit', edit_station_path(station) %></td>

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
       get 'bl' => 'reports#battery_level', as: nil
       get 'get_boost'
       get 'gb' => 'reports#get_boost', as: nil
+      get 'get_time_to_start' => 'reports#get_station_time_to_start'
+      get 'tts' => 'reports#get_station_time_to_start', as: nil
     end
   end
 
