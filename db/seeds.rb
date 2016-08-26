@@ -7,14 +7,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Team.create(name: "Chaos", colour: "FF0000")
-Team.create(name: "Sajberkomm", colour: "003CFF")
-Team.create(name: "Klustret", colour: "B300FF")
-Team.create(name: "Hjortkloe", colour: "FFBF00")
-empty = Team.create(name: "ownerless", colour: "000000")
+Team.create(name: "Chaos", short_name: "666", colour: "FF0000")
+Team.create(name: "Cyberkomm", short_name: "CYB", colour: "003CFF")
+Team.create(name: "Klustret", short_name: "CLU", colour: "B300FF")
+Team.create(name: "Hjortkloe", short_name: "HKM", colour: "FFBF00")
 
 
-Station.create(location: "Sinter Plant", team: empty)
-Station.create(location: "Desert", team: empty)
-Station.create(location: "Railroad", team: empty)
-Station.create(location: "Emil's place", team: empty)
+Station.create(location: "Vägslut", team: nil)
+Station.create(location: "Sandfält", team: nil)
+Station.create(location: "Skogsby", team: nil)
+Station.create(location: "Grusdump", team: nil)

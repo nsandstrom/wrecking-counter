@@ -22,6 +22,8 @@ development:
 test:
   <<: *default
   database: scorecounter_test
+  username: root
+  password: <%= ENV['development_db_password'] %>
 
 production:
   <<: *default
