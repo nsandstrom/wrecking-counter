@@ -40,6 +40,11 @@
   <%= f.datetime_select :starttime, :ignore_date => true, minute_step: 5, :default => Time.zone.now +  2.hours %><br>
   <%= f.label :length, "Length" %>
   <%= f.text_field :length %><br>
+  <%= f.label :stations, "Active stations:   " %><br>
+  <% (1..4).each do |i| %>
+  <%= @stations[i-1].location %>
+    <%= check_box_tag "stations[#{i}]", 'active', true -%><br>
+  <% end -%><br>
   <%= f.submit "Submit" %>
 <% end -%>
 

@@ -7,6 +7,7 @@ class RoundsController < ApplicationController
   # GET /rounds.json
   def index
     @rounds = Round.all
+    @stations = Station.all
   end
 
   # GET /rounds/1
@@ -31,12 +32,16 @@ class RoundsController < ApplicationController
     runtime = params[:round][:length].to_i
     puts "start time #{params[:round][:Starttime]}"
 
-    unless round && round.active
-       Round.create(name: "Test round",starttime: starttime, endtime: (starttime + runtime.minutes).utc, active: false )
-      #  fork do
-      #   "#{%x{ rake -f #{Rails.root}/Rakefile gameround:run }}"
-      # end
+    stations = 0
+    params[:stations].each do |station|
+      id = station.first.to_i
+      stations = (stations | (1<<(id-1)))
     end
+
+    # unless round && round.active
+       Round.create(name: "Test round",starttime: starttime, endtime: (starttime + runtime.minutes).utc, active: false, stations: stations )
+      
+    # end
 
     
     # head 202

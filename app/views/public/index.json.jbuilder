@@ -3,7 +3,7 @@ json.round do
 end
 
 json.stations(@stations) do |station|
-  json.extract! station, :id, :location, :owner, :boost
+  json.extract! station, :id, :location, :owner, :boost, :active
 end
 
 json.teams(@teams) do |team|
