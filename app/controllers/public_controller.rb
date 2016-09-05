@@ -2,6 +2,7 @@ class PublicController < ApplicationController
 	def index
 		@stations = Station.all
 		@teams = Team.all
-		@round = Round.active.order('endtime desc').first
+		@active_round = Round.active.order('endtime desc').first
+		@coming_rounds = Round.coming.order('starttime')
 	end
 end
