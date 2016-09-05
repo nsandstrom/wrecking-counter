@@ -4,7 +4,7 @@
 <div>
 	<% if @active_round %>
 		<h3>The game is on!</h3>
-		<%= @round.remaining %> left.
+		<%= @active_round.remaining %> left.
 	<% else %>
 		<h3>No game right now</h3>
 	<% end -%>
