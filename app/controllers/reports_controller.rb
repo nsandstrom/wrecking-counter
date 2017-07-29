@@ -10,8 +10,14 @@ class ReportsController < ApplicationController
 
 	def set_owner
 		station = Station.find(params[:id])
-		if Team.exists?(params[:owner]) && station.update(team_id: params[:owner])
-		# if params[:owner].to_i.between?(1, Station.last.id)			
+
+		if params[:owner] == "0"
+			owner = nil
+		else
+			owner = params[:owner]
+		end
+
+		if ( params[:owner] == "0" || Team.exists?(owner) ) && station.update(team_id: owner, under_capture: false)
 			render status: 202, text: "Ok"
 		else
 			head 400
@@ -26,6 +32,15 @@ class ReportsController < ApplicationController
 			else
 				render status: 200, text: "Ok:0"
 			end
+		end
+	end
+
+	def under_capture
+		station = Station.find(params[:id])
+		if station.update(under_capture: true)
+			render status: 202, text: "Ok"
+		else
+			head 400
 		end
 	end
 

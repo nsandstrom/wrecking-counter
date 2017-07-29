@@ -32,6 +32,8 @@ Rails.application.routes.draw do
       get 'go' => 'reports#get_owner', as: nil
       get 'battery_level'
       get 'bl' => 'reports#battery_level', as: nil
+      get 'under_capture'
+      get 'uc' => 'reports#under_capture', as: nil
       get 'get_boost'
       get 'gb' => 'reports#get_boost', as: nil
       get 'get_time_to_start' => 'reports#get_station_time_to_start'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826095540) do
+ActiveRecord::Schema.define(version: 20170729122244) do
 
   create_table "rounds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -31,12 +31,13 @@ ActiveRecord::Schema.define(version: 20160826095540) do
   end
 
   create_table "stations", force: :cascade do |t|
-    t.string   "location",   limit: 255
-    t.integer  "team_id",    limit: 4
-    t.integer  "boost",      limit: 4,   default: 100, null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "location",      limit: 255
+    t.integer  "team_id",       limit: 4
+    t.integer  "boost",         limit: 4,   default: 100, null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.datetime "latest_com"
+    t.boolean  "under_capture"
   end
 
   add_index "stations", ["team_id"], name: "index_stations_on_team_id", using: :btree
