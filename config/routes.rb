@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       get 'gb' => 'reports#get_boost', as: nil
       get 'get_time_to_start' => 'reports#get_station_time_to_start'
       get 'tts' => 'reports#get_station_time_to_start', as: nil
+      get 'submit_calibration_code'
+      get 'scc' => 'reports#submit_calibration_code', as: nil
+      get 'verify_calibration_code'
+      get 'vcc' => 'reports#verify_calibration_code', as: nil
     end
   end
 

@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
-	before_action :verify_passkey, only: [:set_owner, :set_boost]
+	before_action :verify_passkey, only: [:set_owner, :set_boost, :verify_calibration_code, :submit_calibration_code]
 	after_action :report_com, only: [:get_boost, :set_owner, :get_station_time_to_start]
 
 	def index
@@ -102,6 +102,20 @@ class ReportsController < ApplicationController
 		end
 			render status: 200, text: "Ok:999999"
 		
+	end
+
+	def verify_calibration_code
+		# make api call to thirdgift. check if code and station number matches
+
+		if params[:code] == "12345678"
+			render status: 200, text: "Ok:1"
+		else
+			render status: 200, text: "Ok:0"
+		end
+	end
+
+	def submit_calibration_code
+		render status: 202, text: "Ok"
 	end
 
 	private
