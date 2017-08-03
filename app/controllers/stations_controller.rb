@@ -62,6 +62,7 @@ class StationsController < ApplicationController
       if @station.update(station_params)
         format.html { redirect_to stations_path, notice: 'Station was successfully updated.' }
         format.json { render :show, status: :ok, location: @station }
+        Thirdgift.update_station @station
       else
         format.html { render :edit }
         format.json { render json: @station.errors, status: :unprocessable_entity }
