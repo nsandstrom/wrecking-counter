@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get 'get_time'
       get 'time?' => 'reports#get_time', as: nil
       post 'set_boost'
+      post 'set_mission'
     end
     member do
       get 'set_owner'

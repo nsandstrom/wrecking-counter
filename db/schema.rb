@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170729122244) do
+ActiveRecord::Schema.define(version: 20170803003733) do
+
+  create_table "calibration_codes", force: :cascade do |t|
+    t.string   "owner",      limit: 255
+    t.integer  "station_id", limit: 4
+    t.integer  "code",       limit: 4
+    t.boolean  "completed"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "rounds", force: :cascade do |t|
     t.string   "name",       limit: 255

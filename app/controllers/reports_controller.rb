@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
-	before_action :verify_passkey, only: [:set_owner, :set_boost, :verify_calibration_code, :submit_calibration_code]
+	before_action :verify_passkey, only: [:set_owner, :set_boost, :verify_calibration_code, :submit_calibration_code, :set_mission]
 	after_action :report_com, only: [:get_boost, :set_owner, :get_station_time_to_start]
 
 	def index
@@ -118,6 +118,12 @@ class ReportsController < ApplicationController
 
 	def submit_calibration_code
 		render status: 202, text: "Ok"
+	end
+
+	def set_mission
+		code = CalibrationCode.new(owner: params["data"])
+		code.save
+		head 202
 	end
 
 	private
