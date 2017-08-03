@@ -40,17 +40,17 @@ class Thirdgift < ActiveRecord::Base
 		call_api_background(request_options)
 	end
 
-	def self.update_station station
-		station_is_existing = get_station station.id
-		if station_is_existing == true
-			puts "update"
-			modify_station station
-		elsif station_is_existing == false
-			puts "create new"
-		else
-			return nil
-		end
-	end
+	# def self.update_station station
+	# 	station_is_existing = get_station station.id
+	# 	if station_is_existing == true
+	# 		puts "update"
+	# 		modify_station station
+	# 	elsif station_is_existing == false
+	# 		puts "create new"
+	# 	else
+	# 		return nil
+	# 	end
+	# end
 
 	# def self.update_team team
 	# 	team_is_existing = get_team team.id
@@ -64,6 +64,32 @@ class Thirdgift < ActiveRecord::Base
 	# 	end
 	# end
 
+	def self.update_station station
+		begin
+			result = modify_station station
+			raise error unless result["data"]["station"]["stationId"].to_i == station.id.to_i
+			return true
+		rescue
+			create_station station
+			return true
+		ensure
+			return false
+		end
+	end
+
+	def self.update_team team
+		begin
+			result = modify_team team
+			raise error unless result["data"]["team"]["teamId"].to_i == team.id.to_i
+			return true
+		rescue
+			create_team team
+			return true
+		ensure
+			return false
+		end
+	end
+
 	def self.create_station station
 		request_options = {method: :post, path: "/lanternStations"}
 		request_options[:params] = {"data" => {"station" => {"stationId" => station.id.to_i, "stationName" => station.location }}}
@@ -72,15 +98,21 @@ class Thirdgift < ActiveRecord::Base
 
 	def self.modify_station station
 		request_options = {method: :post, path: "/lanternStations/#{station.id}"}
-		request_options[:params] = {"data" => {"station" => {"stationId" => station.id.to_i, "stationName" => station.location, "owner" => station.team_id	}}}
+		request_options[:params] = {"data" => {"station" => {"stationName" => station.location, "owner" => station.team_id	}}}
 		response = call_api(request_options)
 	end
 
-	# def self.create_team team
-	# 	request_options = {method: :post, path: "/lanternTeams"}
-	# 	request_options[:params] = {"data" => {"team" => {"teamId" => team.id, "shortName" => team.short_name, "teamName" => team.name }}}
-	# 	response = call_api(request_options)
-	# end
+	def self.create_team team
+		request_options = {method: :post, path: "/lanternTeams"}
+		request_options[:params] = {"data" => {"team" => {"teamId" => team.id, "shortName" => team.short_name, "teamName" => team.name }}}
+		response = call_api(request_options)
+	end
+
+	def self.modify_team team
+		request_options = {method: :post, path: "/lanternTeams/#{team.id}"}
+		request_options[:params] = {"data" => {"team" => {"shortName" => team.short_name, "teamName" => team.name }}}
+		response = call_api(request_options)
+	end
 
 
 
@@ -108,13 +140,16 @@ class Thirdgift < ActiveRecord::Base
 				method: req_method,
 				url: "https://devbbrterminal.thethirdgift.com/api#{options[:path]}",
 				headers: {Authorization: ENV['thirdgift_api_token'], :content_type => 'application/json'},
-				payload: payload.to_json
+				payload: payload.to_json,
+				timeout: 10
 			)
 			puts response	
 			return JSON.parse response
 		rescue RestClient::ExceptionWithResponse => e
-	    	puts e.response
-	    	return JSON.parse e.response
+			puts e.response
+			return JSON.parse e.response
+		ensure
+			return {}
 		end
 	end
 
@@ -132,7 +167,7 @@ class Thirdgift < ActiveRecord::Base
 	end
 
 	# def self.get_team team_id
-	# 	request_options = {method: :get, path: "/lanternTeams/#{team}"}
+	# 	request_options = {method: :get, path: "/lanternTeams/#{team_id}"}
 	# 	response = call_api request_options
 	# 	if response.dig("data", "station", "teamId") == team.to_i
 	# 		return true

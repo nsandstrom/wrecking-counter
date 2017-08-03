@@ -60,9 +60,9 @@ class StationsController < ApplicationController
   def update
     respond_to do |format|
       if @station.update(station_params)
-        format.html { redirect_to stations_path, notice: 'Station was successfully updated.' }
+        thirdgift_status = Thirdgift.update_station @station
+        format.html { redirect_to stations_path, notice: "Station was successfully updated.#{' Api error' unless thirdgift_status}" }
         format.json { render :show, status: :ok, location: @station }
-        Thirdgift.update_station @station
       else
         format.html { render :edit }
         format.json { render json: @station.errors, status: :unprocessable_entity }
