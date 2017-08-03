@@ -1,6 +1,7 @@
 class RoundsController < ApplicationController
   require 'rake'
   before_action :set_round, only: [:show, :edit, :update, :destroy]
+  after_action :thirdgift_update_time, only: [:create, :update, :destroy]
   before_action :authenticate_user
 
   # GET /rounds
@@ -42,7 +43,6 @@ class RoundsController < ApplicationController
        Round.create(name: "Test round",starttime: starttime, endtime: (starttime + runtime.minutes).utc, active: false, stations: stations )
       
     # end
-
     
     # head 202
     redirect_to rounds_path
@@ -107,5 +107,10 @@ class RoundsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def round_params
       params.require(:round).permit(:name, :active, :starttime, :endtime, :score)
+    end
+
+    def thirdgift_update_time
+      Thirdgift.update_round_time
+
     end
 end

@@ -42,6 +42,7 @@ namespace :gameround do
 			end
 
 			if (active_round = Round.where(:active => true).last)
+				Thirdgift.update_round_time
 				puts "got active round"
 				last_tick = Time.now
 				until Time.now > active_round.endtime do
@@ -67,6 +68,8 @@ namespace :gameround do
 					sleep 0.1
 				end
 				active_round.update(active: false)
+				Thirdgift.update_round_time
+				puts "round ended"
 			end
 			sleep 1
 			puts "no game"
