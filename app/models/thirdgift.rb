@@ -70,10 +70,13 @@ class Thirdgift < ActiveRecord::Base
 			raise error unless result["data"]["station"]["stationId"].to_i == station.id.to_i
 			return true
 		rescue
-			create_station station
-			return true
-		ensure
-			return false
+			begin
+				create_station station
+				raise error unless result["data"]["station"]["stationId"].to_i == station.id.to_i
+				return true
+			rescue
+				return false
+			end
 		end
 	end
 
@@ -83,10 +86,13 @@ class Thirdgift < ActiveRecord::Base
 			raise error unless result["data"]["team"]["teamId"].to_i == team.id.to_i
 			return true
 		rescue
-			create_team team
-			return true
-		ensure
-			return false
+			begin
+				create_team team
+				raise error unless result["data"]["team"]["teamId"].to_i == team.id.to_i
+				return true
+			rescue
+				return false
+			end
 		end
 	end
 
@@ -98,20 +104,31 @@ class Thirdgift < ActiveRecord::Base
 
 	def self.modify_station station
 		request_options = {method: :post, path: "/lanternStations/#{station.id}"}
-		request_options[:params] = {"data" => {"station" => {"stationName" => station.location, "owner" => station.team_id	}}}
+		request_options[:params] = {"data" => {"stationz" => {"stationName" => station.location, "owner" => station.team_id	}}}
 		response = call_api(request_options)
 	end
 
 	def self.create_team team
 		request_options = {method: :post, path: "/lanternTeams"}
-		request_options[:params] = {"data" => {"team" => {"teamId" => team.id, "shortName" => team.short_name, "teamName" => team.name }}}
+		request_options[:params] = {"data" => {"team" => {"teamId" => team.id, "shortName" => team.short_name, "teamName" => team.name, "points" => team.score }}}
 		response = call_api(request_options)
 	end
 
 	def self.modify_team team
 		request_options = {method: :post, path: "/lanternTeams/#{team.id}"}
-		request_options[:params] = {"data" => {"team" => {"shortName" => team.short_name, "teamName" => team.name }}}
+		request_options[:params] = {"data" => {"team" => {"shortName" => team.short_name, "teamName" => team.name, "points" => team.score }}}
 		response = call_api(request_options)
+	end
+
+	def self.submit_calibration_code code
+		request_options = {method: :post, path: "/users/#{code.owner}/calibrationMission/complete"}
+		begin
+			response = call_api(request_options)
+			raise error unless response["data"]["mission"]["code"].to_i == code.code.to_i
+			return true
+		rescue
+			return false
+		end
 	end
 
 
@@ -147,9 +164,11 @@ class Thirdgift < ActiveRecord::Base
 			return JSON.parse response
 		rescue RestClient::ExceptionWithResponse => e
 			puts e.response
-			return JSON.parse e.response
-		ensure
-			return {}
+			begin
+				return JSON.parse e.response
+			rescue
+				return {}
+			end
 		end
 	end
 

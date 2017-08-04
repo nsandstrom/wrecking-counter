@@ -107,9 +107,9 @@ class ReportsController < ApplicationController
 	end
 
 	def verify_calibration_code
-		# make api call to thirdgift. check if code and station number matches
-
-		if params[:code] == "12345678"
+		code = CalibrationCode.where(code: params[:code], station_id: params[:id], completed: false).first
+		api_status = Thirdgift.submit_calibration_code code
+		if api_status
 			render status: 200, text: "Ok:1"
 		else
 			render status: 200, text: "Ok:0"
@@ -117,13 +117,23 @@ class ReportsController < ApplicationController
 	end
 
 	def submit_calibration_code
-		render status: 202, text: "Ok"
+		# unimplemented
 	end
 
-	def set_mission
-		code = CalibrationCode.new(owner: params["data"])
-		code.save
-		head 202
+	def set_mission	#receive generate calibration codes from thirdgift
+		begin
+			mission = params[:mission]
+			puts mission
+			CalibrationCode.disable_old mission[:owner]
+			code = CalibrationCode.new(owner: mission[:owner], code: mission[:code], station_id: mission[:stationId], completed: mission[:completed] || false)
+			if code.save
+				render json: {status: :ok}
+			else
+				head 422
+			end
+		rescue
+			head 500
+		end
 	end
 
 	private
