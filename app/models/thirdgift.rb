@@ -45,6 +45,16 @@ class Thirdgift < ActiveRecord::Base
 		call_api_background(request_options)
 	end
 
+	def self.set_active_stations
+		Station.all.each do |station|
+			isActive = station.active
+			request_options = {method: :post, path: "/lanternStations/#{station.id}"}
+			request_options[:params] = {"data" => {"station" => {"isActive" => isActive}}}
+			call_api_background(request_options)
+		end
+
+	end
+
 	# def self.update_station station
 	# 	station_is_existing = get_station station.id
 	# 	if station_is_existing == true
