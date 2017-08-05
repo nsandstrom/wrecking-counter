@@ -1,0 +1,98 @@
+<div class="container">
+<div class="containerBox">
+	<h3>Teams</h3>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Shortname</th>
+			<th>Score</th>
+			<th>Active</th>
+		</tr>
+		<% @teams.each do |team| %>
+			<tr>
+				<td><%= team["teamId"] %></td>
+				<td><%= team["teamName"] %></td>
+				<td><%= team["shortName"] %></td>
+				<td><%= team["points"] %></td>
+				<td><%= team["isActive"] %></td>
+			</tr>
+		<% end -%>
+	</table>
+	<br>
+</div>
+
+<div class="containerBox">
+	<h3>Stations</h3>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Owner</th>
+			<th>Boost</th>
+			<th>Attacked</th>
+		</tr>
+		<tr><th>Active</th></tr>
+		<% @active_stations.each do |station| %>
+			<tr>
+				<td><%= station["stationId"] %></td>
+				<td><%= station["stationName"] %></td>
+				<td><%= station["owner"] %></td>
+				<td><%= station["signalValue"] %></td>
+				<td><%= station["isUnderAttack"] %></td>
+			</tr>
+		<% end -%>
+		<tr><th>Inactive</th></tr>
+		<% @inactive_stations.each do |station| %>
+			<tr>
+				<td><%= station["stationId"] %></td>
+				<td><%= station["stationName"] %></td>
+				<td><%= station["owner"] %></td>
+				<td><%= station["signalValue"] %></td>
+				<td><%= station["isUnderAttack"] %></td>
+			</tr>
+		<% end -%>
+	</table>
+	<br>
+</div>
+
+<div class="containerBox">
+	<h3>Game round stats</h3>
+	<table>
+		<tr>
+			<th>Active</th>
+			<th>Start time</th>
+			<th>End time</th>
+		</tr>
+		
+		<tr>
+			<td><%= @round_stats["isActive"] %></td>
+			<td><%= @round_stats["startTime"] ? @round_stats["startTime"].to_time.strftime("%F %T |") : "null" %></td>
+			<td><%= @round_stats["endTime"] ? @round_stats["endTime"].to_time.strftime("%F %T") : "null"  %></td>
+		</tr>
+		
+	</table>
+	<br>
+</div>
+
+<div class="containerBox">
+	<h3>Active codes</h3>
+	<table>
+		<tr>
+			<th>Owner</th>
+			<th>Code</th>
+			<th>Station</th>
+		</tr>
+		<% @calibration_codes.each do |team| %>
+			<tr>
+				<td><%= team["owner"] %></td>
+				<td><%= team["code"] %></td>
+				<td><%= team["stationId"] %></td>
+			</tr>
+		<% end -%>
+	</table>
+	<br>
+</div>
+
+
+</div>

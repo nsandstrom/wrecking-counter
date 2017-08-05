@@ -48,6 +48,9 @@ Rails.application.routes.draw do
 
   put 'reset_all' => 'application#reset'
 
+  resources :thirdgift, only: :index do
+  end
+
   resources :public, only: :index do
     collection do
       resources :teams, only: [:index, :show] do

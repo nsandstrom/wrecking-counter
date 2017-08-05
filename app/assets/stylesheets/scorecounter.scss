@@ -15,5 +15,25 @@ nav {
 
 nav:after
 {   
-    clear: all;
+    clear: both;
+    display: block;
+}
+
+.containerBox {
+	border: solid gray 1px;
+	border-bottom: none;
+	padding: 5px;
+	border-collapse: collapse;
+}
+
+.containerBox:last-child {
+    border-bottom: 1px solid gray;
+}
+
+.container {
+	float: left;
+}
+
+.container:after{
+	clear: both;
 }

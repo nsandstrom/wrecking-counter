@@ -1,4 +1,9 @@
 class Thirdgift < ActiveRecord::Base
+	def self.get_action action_path
+		request_options = {method: :get, path: action_path}
+		response = call_api(request_options)
+	end
+
 	def self.set_station_owner station, owner
 		station = station.to_i
 		owner = owner.to_i
@@ -32,7 +37,7 @@ class Thirdgift < ActiveRecord::Base
 			start_time = round.starttime.to_s
 			end_time = round.endtime.to_s
 		else
-			start_time = nil
+			start_time = ""
 			end_time = nil
 		end
 		request_options = {method: :post, path: "/lanternRounds/time"}
@@ -104,7 +109,7 @@ class Thirdgift < ActiveRecord::Base
 
 	def self.modify_station station
 		request_options = {method: :post, path: "/lanternStations/#{station.id}"}
-		request_options[:params] = {"data" => {"stationz" => {"stationName" => station.location, "owner" => station.team_id	}}}
+		request_options[:params] = {"data" => {"station" => {"stationName" => station.location, "owner" => station.team_id	}}}
 		response = call_api(request_options)
 	end
 
@@ -147,7 +152,7 @@ class Thirdgift < ActiveRecord::Base
 
 	def self.make_request options = {}
 		puts "wait for external API-call"
-		sleep 5
+		# sleep 5
 		puts "Call to #{options[:path]}"
 		req_method = options[:method] || :get
 		payload = options[:params] || {}
