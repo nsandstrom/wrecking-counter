@@ -108,9 +108,13 @@ class ReportsController < ApplicationController
 
 	def verify_calibration_code
 		code = CalibrationCode.where(code: params[:code], station_id: params[:id], completed: false).first
-		api_status = Thirdgift.submit_calibration_code code
-		if api_status
-			render status: 200, text: "Ok:1"
+		if code
+			api_status = Thirdgift.submit_calibration_code code
+			if api_status
+				render status: 200, text: "Ok:1"
+			else
+				render status: 200, text: "Ok:0"
+			end
 		else
 			render status: 200, text: "Ok:0"
 		end
