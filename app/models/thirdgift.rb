@@ -7,6 +7,7 @@ class Thirdgift < ActiveRecord::Base
 	def self.set_station_owner station, owner
 		station = station.to_i
 		owner = owner.to_i
+		owner = -1 if owner == 0
 		request_options = {method: :post, path: "/lanternStations/#{station}"}
 		request_options[:params] = {"data" => {"station" => {"owner" => owner}}}
 		response = call_api_background(request_options)
@@ -80,6 +81,7 @@ class Thirdgift < ActiveRecord::Base
 	# end
 
 	def self.update_station station
+		station.team_id = -1 if station.team_id == nil
 		begin
 			result = modify_station station
 			raise error unless result["data"]["station"]["stationId"].to_i == station.id.to_i
