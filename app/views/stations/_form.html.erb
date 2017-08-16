@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :team_id %><br>
-    <%= f.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name', @station.team_id) %>
+    <%= f.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name', @station.team_id), include_blank: "Unclaimed" %>
   </div>
   <div class="field">
     <%= f.label :boost %><br>
