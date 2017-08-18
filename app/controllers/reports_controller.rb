@@ -111,6 +111,7 @@ class ReportsController < ApplicationController
 		if code
 			api_status = Thirdgift.submit_calibration_code code
 			if api_status
+				code.update(completed:true)
 				render status: 200, text: "Ok:1"
 			else
 				render status: 200, text: "Ok:0"

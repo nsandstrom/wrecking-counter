@@ -6,10 +6,10 @@
 		<%= link_to "Visa aktiva", active_calibration_codes_path %>
 	<% end -%>
 </p>
-<div class="container">
+<div>
 <table>
 <thead>
-<tr class="containerBox">
+<tr>
 	<th>Owner</th>
 	<th>Code</th>
 	<th>Station</th>
@@ -19,7 +19,7 @@
 <thead>
 <tbody class="highlight">
 <% @calibration_codes.each do |code|  %>
-<tr class="containerBox">
+<tr>
 	<td><%= code.owner %></td>
 	<td><%= code.code %></td>
 	<td><%= code.station_id %></td>
@@ -30,8 +30,4 @@
 <% end -%>
 </tbody>
 </table>
-</div>
-<br>
-<div>
-	<%= @calibration_codes.first.inspect %>
 </div>
