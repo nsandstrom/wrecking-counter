@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<p>
+	<% if @active %>
+		<%= link_to "Visa alla", calibration_codes_path %>
+	<% else %>
+		<%= link_to "Visa aktiva", active_calibration_codes_path %>
+	<% end -%>
+</p>
+<div class="container">
+<table>
+<thead>
+<tr class="containerBox">
+	<th>Owner</th>
+	<th>Code</th>
+	<th>Station</th>
+	<th>Completed</th>
+	<th>Created</th>
+</tr>
+<thead>
+<tbody class="highlight">
+<% @calibration_codes.each do |code|  %>
+<tr class="containerBox">
+	<td><%= code.owner %></td>
+	<td><%= code.code %></td>
+	<td><%= code.station_id %></td>
+	<td><%= code.completed %></td>
+	<td><%= code.created_at.strftime("%F - %T") %></td>
+	<td><%= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end -%>
+</tbody>
+</table>
+</div>
+<br>
+<div>
+	<%= @calibration_codes.first.inspect %>
+</div>

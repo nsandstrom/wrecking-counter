@@ -19,6 +19,10 @@ nav:after
     display: block;
 }
 
+.highlight tr:hover{
+    background-color: #EFEFEF;
+}
+
 .containerBox {
 	border: solid gray 1px;
 	border-bottom: none;
@@ -35,5 +39,7 @@ nav:after
 }
 
 .container:after{
+	content: "";
+	display: block;
 	clear: both;
 }

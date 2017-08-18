@@ -17,6 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :calibration_codes, only: [:index, :destroy] do
+    collection do
+      get 'active'
+    end
+  end
+
   resources :reports, except: [:index, :new, :create, :show, :edit, :update, :destroy] do
     collection do
       get 'get_time_to_start'
