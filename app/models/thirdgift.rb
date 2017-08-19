@@ -46,6 +46,12 @@ class Thirdgift < ActiveRecord::Base
 		call_api_background(request_options)
 	end
 
+	def self.update_team_score team
+		request_options = {method: :post, path: "/lanternTeams/#{team.id}"}
+		request_options[:params] = {"data" => {"team" => {"points" => team.score }}}
+		call_api_background(request_options)
+	end
+
 	def self.set_active_stations
 		Station.all.each do |station|
 			isActive = station.active
