@@ -19,6 +19,10 @@
     <%= f.label :active %><br>
     <%= f.text_field :active %>
   </div>
+  <% @stations.each do |station| %>
+  <%= station["location"] %>
+    <%= check_box_tag "stations[#{station['id']}]", 'active', station['active'] -%><br>
+  <% end -%><br>
   <div class="field">
     <%= f.label :endtime %><br>
     <%= f.datetime_select :endtime %>

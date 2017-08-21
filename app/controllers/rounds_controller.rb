@@ -33,11 +33,7 @@ class RoundsController < ApplicationController
     runtime = params[:round][:length].to_i
     puts "start time #{params[:round][:Starttime]}"
 
-    stations = 0
-    params[:stations].each do |station|
-      id = station.first.to_i
-      stations = (stations | (1<<(id-1)))
-    end
+    stations = mask_stations params[:stations]
 
     # unless round && round.active
        Round.create(name: "Test round",starttime: starttime, endtime: (starttime + runtime.minutes).utc, active: false, stations: stations )
@@ -56,6 +52,10 @@ class RoundsController < ApplicationController
 
   # GET /rounds/1/edit
   def edit
+    @stations = Station.all.as_json(only: [:id, :location])
+    @stations.each do |station|
+      station["active"] = (1 << (station["id"] - 1)) & @round.stations == (1 << (station["id"] - 1))
+    end
   end
 
   # POST /rounds
@@ -77,8 +77,9 @@ class RoundsController < ApplicationController
   # PATCH/PUT /rounds/1
   # PATCH/PUT /rounds/1.json
   def update
+    stations = mask_stations params[:stations]
     respond_to do |format|
-      if @round.update(round_params)
+      if @round.update(round_params.merge(stations: stations))
         format.html { redirect_to @round, notice: 'Round was successfully updated.' }
         format.json { render :show, status: :ok, location: @round }
       else
@@ -99,6 +100,15 @@ class RoundsController < ApplicationController
   end
 
   private
+    def mask_stations stations_from_params
+      stations = 0
+      stations_from_params.each do |station|
+        id = station.first.to_i
+        stations = (stations | (1<<(id-1)))
+      end
+      return stations
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_round
       @round = Round.find(params[:id])
