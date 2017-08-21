@@ -66,7 +66,7 @@ namespace :gameround do
 						# puts "time now: #{Time.now.utc} - endtime: #{round.endtime}"
 						# puts "time left: #{Time.at(round.endtime - Time.now - 1.hour).strftime("%H:%M:%S")}"
 						# round.update(active: false) if Time.now.utc > round.endtime
-						break if not Round.exists? active_round.id
+						active_round = Round.find active_round.id
 					end
 					sleep 0.1
 				end
