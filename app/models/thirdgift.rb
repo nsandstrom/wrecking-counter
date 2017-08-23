@@ -127,7 +127,7 @@ class Thirdgift < ActiveRecord::Base
 
 	def self.modify_station station
 		request_options = {method: :post, path: "/lanternStations/#{station.id}"}
-		request_options[:params] = {"data" => {"station" => {"stationName" => station.location, "owner" => station.team_id	}}}
+		request_options[:params] = {"data" => {"station" => {"stationName" => station.location, "owner" => station.team_id,	"calibrationReward" => station.reward	}}}
 		response = call_api(request_options)
 	end
 

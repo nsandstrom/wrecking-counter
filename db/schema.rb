@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803003733) do
+ActiveRecord::Schema.define(version: 20170823184548) do
 
   create_table "calibration_codes", force: :cascade do |t|
     t.string   "owner",      limit: 255
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170803003733) do
     t.datetime "updated_at",                              null: false
     t.datetime "latest_com"
     t.boolean  "under_capture"
+    t.integer  "reward",        limit: 4
   end
 
   add_index "stations", ["team_id"], name: "index_stations_on_team_id", using: :btree

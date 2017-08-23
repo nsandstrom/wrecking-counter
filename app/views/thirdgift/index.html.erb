@@ -31,6 +31,7 @@
 			<th>Owner</th>
 			<th>Boost</th>
 			<th>Attacked</th>
+			<th>Calib-Reward</th>
 		</tr>
 		<tr><th>Active</th></tr>
 		<% @active_stations.each do |station| %>
@@ -40,6 +41,7 @@
 				<td><%= station["owner"] %></td>
 				<td><%= station["signalValue"] %></td>
 				<td><%= station["isUnderAttack"] %></td>
+				<td><%= station["calibrationReward"] %></td>
 			</tr>
 		<% end -%>
 		<tr><th>Inactive</th></tr>
@@ -50,6 +52,7 @@
 				<td><%= station["owner"] %></td>
 				<td><%= station["signalValue"] %></td>
 				<td><%= station["isUnderAttack"] %></td>
+				<td><%= station["calibrationReward"] %></td>
 			</tr>
 		<% end -%>
 	</table>
