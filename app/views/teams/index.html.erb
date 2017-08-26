@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Score</th>
       <th>Tag</th>
+      <th>Owned stations</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= team.name %></td>
         <td><%= (team.score / 100.0).round %></td>
         <td><%= team.short_name %></td>
+        <td><%= team.captured_stations.join(',') %></td>
         <td><%= link_to 'Show', team %></td>
         <td><%= link_to 'Edit', edit_team_path(team) %></td>
         <td><%= link_to 'Reset', reset_team_path(team),  method: :put %></td>

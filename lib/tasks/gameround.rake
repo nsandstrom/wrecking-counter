@@ -39,6 +39,7 @@ namespace :gameround do
 
 			Round.where("starttime <= ?", Time.now).where("endtime >= ?", Time.now).each do |round|
 				round.update(active: true)
+				Team.clear_captured_stations
 			end
 
 			if (active_round = Round.where(:active => true).last)

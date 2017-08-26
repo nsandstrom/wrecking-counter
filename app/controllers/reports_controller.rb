@@ -18,6 +18,7 @@ class ReportsController < ApplicationController
 		end
 
 		if ( params[:owner] == "0" || Team.exists?(owner) ) && station.update(team_id: owner, under_capture: false)
+			Team.find(owner).check_capture_bonus(station.id) unless owner == nil
 			Thirdgift.set_station_owner params[:id], owner
 			render status: 202, text: "Ok"
 		else
