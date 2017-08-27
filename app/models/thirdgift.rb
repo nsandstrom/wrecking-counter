@@ -178,7 +178,7 @@ class Thirdgift < ActiveRecord::Base
 		begin
 			response = RestClient::Request.execute(
 				method: req_method,
-				url: "https://devbbrterminal.thethirdgift.com/api#{options[:path]}",
+				url: "https://bbrterminal.thethirdgift.com/api#{options[:path]}",
 				headers: {Authorization: ENV['thirdgift_api_token'], :content_type => 'application/json'},
 				payload: payload.to_json,
 				timeout: 10
