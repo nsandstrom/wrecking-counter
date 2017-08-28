@@ -13,7 +13,7 @@
 <tbody class="highlight">
 <% @codes.each do |owner, count|  %>
 <tr>
-	<td><%= owner %></td>
+	<td><%= link_to owner, user_thirdgift_index_path(name: owner) %></td>
 	<td><%= count %></td>
 </tr>
 <% end -%>
