@@ -9,6 +9,11 @@ class CalibrationCodesController < ApplicationController
 		render "index"
 	end
 
+	def top_list
+		@codes = CalibrationCode.where(completed: true).group(:owner).count
+		@codes = Hash[@codes.sort_by{ |k, v| -v }]
+	end
+
 	def destroy
 		CalibrationCode.find(params[:id]).destroy
 		redirect_to calibration_codes_url, notice: 'Code deleted.'

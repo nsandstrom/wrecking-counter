@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<p>
+	<%= link_to "Visa alla", calibration_codes_path %>
+</p>
+<div>
+<table>
+<thead>
+<tr>
+	<th>Owner</th>
+	<th>score</th>
+</tr>
+<thead>
+<tbody class="highlight">
+<% @codes.each do |owner, count|  %>
+<tr>
+	<td><%= owner %></td>
+	<td><%= count %></td>
+</tr>
+<% end -%>
+</tbody>
+</table>
+</div>

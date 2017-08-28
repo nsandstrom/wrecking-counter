@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :calibration_codes, only: [:index, :destroy] do
     collection do
       get 'active'
+      get 'top-list'
     end
   end
 
