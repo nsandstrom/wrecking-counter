@@ -1,0 +1,13 @@
+<div>
+<h3>User</h3>
+<table>
+<tbody class="highlight">
+<% @user.each do |key, val| %>
+<tr>
+	<td><b><%= key %></b></td>
+	<td><%= val %></td>
+</tr>
+<% end -%>
+</tbody>
+</table>
+</div>

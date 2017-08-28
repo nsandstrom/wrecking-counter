@@ -1,0 +1,20 @@
+<div>
+<table>
+<thead>
+<tr>
+	<th></th>
+	<th>User</th>
+	<th>Team</th>
+</tr>
+<thead>
+<tbody class="highlight">
+<% @users.each do |user|  %>
+<tr>
+	<td><%= (image_tag("/online.png", size: "16x16", alt: "Edit Entry")) if user["online"] %></td>
+	<td><%= link_to user["userName"], user_thirdgift_index_path(name: user["userName"]) %></td>
+	<td><%= user["team"] %></td>
+</tr>
+<% end -%>
+</tbody>
+</table>
+</div>

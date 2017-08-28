@@ -56,6 +56,10 @@ Rails.application.routes.draw do
   put 'reset_all' => 'application#reset'
 
   resources :thirdgift, only: :index do
+    collection do
+      get 'user/:name' => 'thirdgift#user', as: "user"
+      get 'users'
+    end
   end
 
   resources :public, only: :index do
